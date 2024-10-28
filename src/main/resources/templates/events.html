@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+	<title>Events</title>
+	<link href="css/events.css" rel="stylesheet" type="text/css">
+	
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+			
+	<div class="container">
+		<div id="listView">
+			<div class="header">
+				<h3>Event List</h3>
+
+				<form th:action="@{/logout}" method="post">
+			        <input type="submit" value="Logout"/>
+			    </form>
+			</div>
+		
+			<div class="sep"></div>
+				
+			<table class="wrap-table100">
+				<thead>
+					<tr class="table100-head">
+						<th class="column1">Id</th>
+						<th class="column2">Date</th>
+						<th class="column3">Name</th>
+						<th class="column4">Description</th>
+						<th class="column5">Level</th>
+						<th class="column7">Actions</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:each="event: ${events}">
+						<td class="column1" th:text="${event.id}"></td>
+						<td class="column2" th:text="${#dates.format(event.date, 'dd-MM-yyyy')}">
+							<!-- <fmt:formatDate value="${event.date}" pattern="dd-MM-yyyy" />
+							/
+							<fmt:formatDate value="${event.endDate}" pattern="dd-MM-yyyy" /> -->
+						</td> 
+						<td class="column3" th:text="${event.name}"></td>
+						<td class="column4" th:text="${event.description}"></td>
+						<td class="column5" th:text="${event.importance}"></td>
+						<td class="column7">
+							<a th:href="@{'/update?id=' + ${event.id}}" class="smallBtn">
+								<img src="images/icon_edit_white_18dp.png">
+							</a>
+							<a th:href="@{'/delete?id=' + ${event.id}}" class="smallDltBtn">
+								<img src="images/icon_delete_white_18dp.png">
+							</a>
+
+							<a th:href="@{'/files/' + ${event.imageName}}" target="_blank" class="smallBtn">
+								<img src="images/icon_image_white_18dp.png">
+							</a>
+	
+						</td>
+				</tbody>
+			</table>
+		
+			<a th:href="@{'/add'}"  class="addBtn"> 
+				Add
+			</a>
+		</div>
+	</div>
+
+	
+	
+	
+	
+</body>
+</html>

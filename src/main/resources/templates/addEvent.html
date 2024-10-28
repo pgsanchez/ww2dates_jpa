@@ -1,0 +1,90 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<!--  <link rel="stylesheet"href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"> -->
+	<link href="css/addEvent.css" rel="stylesheet" type="text/css">
+
+	<!-- Links para el mapa Leaflet -->
+
+	<link href="js/leaflet/leaflet.css" rel="stylesheet">
+	<script src="js/leaflet/leaflet.js"></script>
+	<script src="js/leafletMap.js"></script>
+
+
+	<style type="text/css">
+	#map {
+		height: 333px;
+		width: 465px;
+	}
+	</style>
+
+	<title>AddEvent</title>
+</head>
+
+<body onload="miFuncion()">
+<div class="container">
+
+	<form th:action="@{/add}" th:object="${newEvent}" method="post" id="addForm" enctype="multipart/form-data">
+
+		<div class="header">
+			<h3>Add Event</h3>
+		</div>
+		<div class="sep"></div>
+		
+		<div class="inputs">
+			<div class="box_inline_name">
+			  <label>Name</label>
+			  <input th:field="*{name}" type="text"/>
+			  <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</p>
+			</div>
+			<div class="box_inline_importance">
+			  <label>Importance</label>
+			  <input th:field="*{importance}" type="number"/>
+			</div>
+			<div class="box_inline_date">
+			  <label>Start</label>
+			  <input th:field="*{date}" type="date" value="1939-09-01" min="1939-09-01"/>
+			</div>
+			
+			<div class="box_inline_date">
+			  <label>End</label>
+			  <input th:field="*{endDate}" type="date" value="1939-09-01"/>
+			</div>
+			 
+		</div> 
+
+		<div class="inputs">
+		   <div class="box_inline_description">
+				<label>Description</label>
+				<textarea th:field="*{description}" class="form-control"></textarea>
+		   </div>
+		</div>
+
+		<div class="inputs">
+			<div class="map">
+				<label>Location</label>
+				<input id="editLat" th:field="*{latitude}" type="number" readonly="true"/>
+				<input id="editLng" th:field="*{longitude}" type="number" readonly="true"/>
+				<div id="map"></div>
+			</div>
+			
+			<div class="image">
+				<label>Image</label>
+					<input id="seleccionArchivos" type="file" name="imageFile"/>
+					<label for="seleccionArchivos">Add file...</label>
+
+				<img class="image" id="imagenPrevisualizacion"/>
+
+				<script src="js/addEvent.js"></script>
+			</div>
+
+			<input type="submit" id="submit" value ="ADD"/>
+		</div>
+
+	</form>
+
+
+</div>
+
+</body>
+</html>

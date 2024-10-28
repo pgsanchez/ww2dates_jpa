@@ -1,0 +1,538 @@
+/*
+*  Colores del tema:
+*  Principal: #58D68D   (Verde)
+*  Oscuro: #121212 (pero no se utiliza, se mezcla con el anterior)
+*  Oscuro del tema: #505853  (resultado de mezclar los anteriores. Verde oscuro)
+*/
+
+body {
+    /*background-image: url(http://kreativo.se/backlogin.jpg);*/
+  /* background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#505853), color-stop(100%,#121212));*/
+  /*background-color: #505853;*/
+  /*background-image: url("planesb17.jpg");*/
+
+	background-image: url("../images/planesb17.jpg");
+    font-family: "Helvetica Neue", Helvetica, Arial;
+    padding-top: 20px;
+}
+
+.container {
+    width: 1000px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+#listView {
+    padding: 0px 25px 25px;
+    background: #fff;
+    box-shadow:
+        0px 0px 0px 5px rgba( 255,255,255,0.4 ),
+        0px 4px 20px rgba( 0,0,0,0.33 );
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    display: table;
+    position: static;
+    width: 95%;
+}
+
+#listView .box_inline_name{
+  display: inline-block;
+  padding-right: 10px;
+    width: 475px;
+    /*background-color: red;*/
+}
+
+#listView .box_inline_date{
+  display: inline-block;
+  padding-right: 10px;
+    width: 15%;
+    /*background-color: blue;*/
+}
+
+#listView .box_inline_importance{
+  display: inline-block;
+  padding-right: 10px;
+    width: 10%;
+    /*background-color: blue;*/
+}
+
+#listView .box_inline_description{
+  display: inline-block;
+
+    width: 100%;
+    /*background-color: blue;*/
+}
+
+#listView .map{
+  display: inline-block;
+  padding-right: 10px;
+    width: 465px;
+    /*background-color: red;*/
+}
+
+#listView .image{
+  display: inline-block;
+    width: 465px;
+    /*background-color: red;*/
+}
+
+#listView .header {
+    margin-bottom: 20px;
+}
+
+#listView .header h3 {
+    color: #505853;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 24px;
+    margin-bottom: 5px;
+}
+
+#listView .header p {
+    color: #8f8f8f;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+#listView .sep {
+    height: 1px;
+    background: #e8e8e8;
+    width: 1000px;
+    margin: 0px -25px;
+}
+
+#listView .inputs {
+    margin-top: 15px;
+}
+
+#listView label {
+    color: #8f8f8f;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-bottom: 7px;
+    display: block;
+}
+
+input::-webkit-input-placeholder {
+    color:    #b5b5b5;
+}
+
+input:-moz-placeholder {
+    color:    #b5b5b5;
+}
+
+#listView .inputs input[type=text] {
+    background: #f5f5f5;
+    font-size: 0.8rem;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: none;
+    padding: 13px 10px;
+    width: 330px;
+    margin-bottom: 20px;
+    box-shadow: inset 0px 2px 3px rgba( 0,0,0,0.1 );
+    clear: both;
+}
+
+#listView .inputs input[type=number] {
+    background: #f5f5f5;
+    font-size: 0.8rem;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: none;
+    padding: 13px 10px;
+    width: 95px;
+    margin-bottom: 20px;
+    box-shadow: inset 0px 2px 3px rgba( 0,0,0,0.1 );
+    clear: both;
+}
+
+#listView .inputs input[type=date] {
+    background: #f5f5f5;
+    font-size: 0.8rem;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: none;
+    padding: 11px 10px 10px;
+    width: 142px;
+    margin-bottom: 20px;
+    box-shadow: inset 0px 2px 3px rgba( 0,0,0,0.1 );
+    clear: both;
+    font-family: "Helvetica Neue", Helvetica, Arial;
+}
+
+
+
+#listView .inputs input[type=name] {
+    background: #f5f5f5;
+    font-size: 0.8rem;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: none;
+    padding: 13px 10px;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: inset 0px 2px 3px rgba( 0,0,0,0.1 );
+    clear: both;
+}
+
+#listView .inputs input[type=latlng] {
+    background: #f5f5f5;
+    font-size: 0.8rem;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: none;
+    padding: 13px 10px;
+    width: 230px;
+    margin-bottom: 10px;
+    box-shadow: inset 0px 2px 3px rgba( 0,0,0,0.1 );
+    clear: both;
+}
+
+#listView .inputs input:focus{
+    background: #fff;
+    box-shadow: 0px 0px 0px 3px #86895d, inset 0px 2px 3px rgba( 0,0,0,0.2 ), 0px 5px 5px rgba( 0,0,0,0.15 );
+    outline: none;
+}
+
+
+#listView .inputs textarea {
+    background: #f5f5f5;
+    font-size: 0.8rem;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: none;
+    padding: 13px 10px;
+    width: 950px;
+    margin-bottom: 20px;
+    box-shadow: inset 0px 2px 3px rgba( 0,0,0,0.1 );
+    clear: both;
+    font-family: "Helvetica Neue", Helvetica, Arial;
+}
+
+#listView .inputs textarea:focus{
+    background: #fff;
+    box-shadow: 0px 0px 0px 3px #86895d, inset 0px 2px 3px rgba( 0,0,0,0.2 ), 0px 5px 5px rgba( 0,0,0,0.15 );
+    outline: none;
+}
+
+#listView .inputs .checkboxy {
+    display: block;
+    position: static;
+    height: 25px;
+    margin-top: 10px;
+    clear: both;
+}
+
+#listView .inputs input[type=checkbox] {
+    float: left;
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
+#listView .inputs label.terms {
+    float: left;
+    font-size: 14px;
+    font-style: italic;
+}
+
+#listView .inputs #submit {
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px 0;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-align: center;
+    text-decoration: none;
+        background: -moz-linear-gradient(
+        top,
+        #86895d 0%,
+        #505853);
+    background: -webkit-gradient(
+        linear, left top, left bottom,
+        from(#86895d),
+        to(#505853));
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #737b8d;
+    -moz-box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    -webkit-box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    text-shadow:
+        0px 1px 3px rgba(000,000,000,0.3),
+        0px 0px 0px rgba(255,255,255,0);
+    display: table;
+    position: static;
+    clear: both;
+}
+
+#listView .inputs #submit:hover {
+    background: -moz-linear-gradient(
+        top,
+        #a4b0cb 0%,
+        #b9c5dd);
+    background: -webkit-gradient(
+        linear, left top, left bottom,
+        from(#505853),
+        to(#86895d));
+}
+
+
+
+#listView .addBtn {
+    width: 30%;
+    padding: 12px 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-align: center;
+    text-decoration: none;
+        background: -moz-linear-gradient(
+        top,
+        #86895d 0%,
+        #505853);
+    background: -webkit-gradient(
+        linear, left top, left bottom,
+        from(#86895d),
+        to(#505853));
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #737b8d;
+    -moz-box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    -webkit-box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    text-shadow:
+        0px 1px 3px rgba(000,000,000,0.3),
+        0px 0px 0px rgba(255,255,255,0);
+    display: inline-block;
+    float: right;
+    position: static;
+    clear: both;
+}
+
+#listView .addBtn:hover{
+    background: -moz-linear-gradient(
+        top,
+        #a4b0cb 0%,
+        #b9c5dd);
+    background: -webkit-gradient(
+        linear, left top, left bottom,
+        from(#505853),
+        to(#86895d));
+}
+
+#listView .smallBtn {
+    width: 25%;
+    padding: 5px 0;
+    color: #fff;
+    text-align: center;
+    background: -webkit-gradient(
+        linear, left top, left bottom,
+        from(#86895d),
+        to(#505853));
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #737b8d;
+    -moz-box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    -webkit-box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    text-shadow:
+        0px 1px 3px rgba(000,000,000,0.3),
+        0px 0px 0px rgba(255,255,255,0);
+    display: inline-block;
+    position: static;
+    clear: both;
+}
+
+#listView .smallBtn:hover{
+    background: -moz-linear-gradient(
+        top,
+        #a4b0cb 0%,
+        #b9c5dd);
+    background: -webkit-gradient(
+        linear, left top, left bottom,
+        from(#505853),
+        to(#86895d));
+}
+
+#listView .smallDltBtn {
+    width: 25%;
+    padding: 5px 0;
+    color: #fff;
+    text-align: center;
+    /*background: -webkit-gradient(
+        linear, left top, left bottom,
+        from(#86895d),
+        to(#505853));*/
+    background: -webkit-gradient(
+        linear, left top, left bottom,
+        from(#8b0000),
+        to(#b22222));
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    /*border: 1px solid #737b8d;*/
+    border: 1px solid #8b0000;
+    -moz-box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    -webkit-box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    text-shadow:
+        0px 1px 3px rgba(000,000,000,0.3),
+        0px 0px 0px rgba(255,255,255,0);
+    display: inline-block;
+    position: static;
+    clear: both;
+}
+
+
+
+#listView .smallDltBtn:hover{
+    background: -moz-linear-gradient(
+        top,
+        #a4b0cb 0%,
+        #b9c5dd);
+    background: -webkit-gradient(
+        linear, left top, left bottom,
+        from(#b22222),
+        to(#8b0000));
+}
+
+
+/* TABLA */
+.wrap-table100 {
+  width: 950px;
+}
+
+table {
+  border-spacing: 1;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  margin-top: 10px;
+}
+
+table thead tr {
+  /*background: #36304a;*/
+  background: -moz-linear-gradient(
+  top,
+  #86895d 0%,
+  #505853);
+  background: -webkit-gradient(
+      linear, left top, left bottom,
+      from(#86895d),
+      to(#505853));
+}
+
+.table100-head th{
+  padding: 12px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+
+tbody td{
+  font-size: 0.8rem;
+padding: 13px 5px;
+
+  /*-moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: none;
+margin-bottom: 20px;
+  width: 330px;
+
+  box-shadow: inset 0px 2px 3px rgba( 0,0,0,0.1 );
+  clear: both;*/
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+tbody tr:hover {
+  /*color: #555555;
+  background-color: #f5f5f5;*/
+  cursor: pointer;
+  color: #fff;
+  background-color: #86895d;
+}
+
+.column1 {
+  width: 60px;
+  text-align: center;
+}
+
+.column2 {
+  width: 100px;
+}
+
+.column3 {
+  width: 200px;
+}
+
+.column4 {
+  width: 230px;
+}
+
+.column5 {
+  width: 70px;
+  text-align: center;
+}
+
+.column6 {
+  width: 100px;
+}
+
+.column7 {
+  width: 100px;
+}
+.column7r {
+  width: 120px;
+  text-align: right;
+}

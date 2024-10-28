@@ -1,0 +1,77 @@
+/*
+*  Colores del tema:
+*  Principal: #58D68D   (Verde muy claro, no se utiliza)
+*  Oscuro: #121212 (pero no se utiliza, se mezcla con el anterior)
+
+*  Oscuro del tema: 505853  (resultado de mezclar los anteriores. Verde oscuro)
+*  Verde oliva: 86895d
+*  Gris oscuro: 737b8d
+
+DARK MODE
+
+Posibles colores de texto
+#e9d09a
+#ba9e70
+#ba7304
+
+Fondo
+#334746
+#4c4c41
+*/
+
+body, html {
+font-family: sans-serif;
+background-image: url("../images/planesb17.jpg");
+}
+
+.vis-timeline {
+      border: 2px solid #737b8d;
+      font-size: 10pt;
+      background: #121212;
+    }
+
+.vis-item {
+      border-color: #ba9e70;
+      background-color: #505853;
+      font-size: 12pt;
+      color: #ba9e70; /* Color del texto */
+      box-shadow: 5px 5px 20px rgba(128,128,128, 0.5);
+    }
+
+/* Ancho de la línea del borde de los eventos*/
+.vis-item,
+.vis-item.vis-line {
+      border-width: 1px;
+    }
+
+/* Colores del elemento seleccionado */
+.vis-item.vis-selected {
+      border-color: #e9d09a;
+      background-color: #86895d;
+    }
+
+/* Color y posicionamiento de los textos del eje X */
+.vis-time-axis .vis-text {
+      color: #e9d09a;
+      padding-top: 5px;
+      padding-left: 5px;
+    }
+
+/* El año del eje X se pone en negrita */
+.vis-time-axis .vis-text.vis-major {
+      font-weight: bold;
+    }
+/* Color y grosor de la línea de separación "menor" */
+/*
+    .vis-time-axis .vis-grid.vis-minor {
+      border-width: 2px;
+      border-color: pink;
+    }
+*/
+/* Color y grosor de la línea de separación de "mayor" */
+/*
+    .vis-time-axis .vis-grid.vis-major {
+      border-width: 2px;
+      border-color: #F991A3;
+    }
+*/
