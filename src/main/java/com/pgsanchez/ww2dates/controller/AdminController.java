@@ -63,17 +63,24 @@ public class AdminController {
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String processAddNewEvent(@Valid @ModelAttribute("newEvent") EventDto newEvent, BindingResult result, @ModelAttribute("imageFile") MultipartFile imageFile, HttpServletRequest request) {
-	//public String processAddNewEvent(@Valid @ModelAttribute("newEvent") EventDto newEvent, BindingResult result, HttpServletRequest request) {	
- 
+
+		// Se validan los datos del formulario
 		if(result.hasErrors()) {
 			return "addEvent";
 		}
 		
-		/*if (imageFile.isEmpty())
-			System.out.println("Imagen sin nombre");
-		if (newEvent.getImageName() == null)
-			System.out.println("Nombre Imagen a null");
+		// La imagen se trata por separado.
+	    if (!imageFile.isEmpty()) {
+	    	
+	    	// Se valida la imagen: tipo de archivo. Solo se permiten formatos jpeg, jpg y png.
+	        String contentType = imageFile.getContentType();
+	        if (!"image/jpeg".equals(contentType) && !"image/jpg".equals(contentType) && !"image/png".equals(contentType)) {
+	            result.rejectValue("imageFile", "error.imageFile", "Solo se permiten imágenes JPG, JPEG y PNG");
+	            return "addEvent";
+	        }
+	    }
 
+	    // Si las validaciones han ido bien:
 		if (newEvent.getId() == 0) {
 			
 			Event event = null;
@@ -86,38 +93,7 @@ public class AdminController {
 			}
 			
 			eventService.addEvent(event, imageFile);
-		}*/
-		
-		// Handle the imageFile separately (e.g., save the file, validate its size/type)
-	    // Validate the imageFile
-	    if (!imageFile.isEmpty()) {
-	        // Example: Check the file size (e.g., max 2MB)
-	        long maxFileSize = 2 * 1024 * 1024; // 2 MB
-	        if (imageFile.getSize() > maxFileSize) {
-	            result.rejectValue("imageFile", "error.imageFile", "File size exceeds the 2MB limit.");
-	            return "addEvent";
-	        }
-
-	        // Example: Check the file type (e.g., only accept JPEG and PNG)
-	        String contentType = imageFile.getContentType();
-	        if (!"image/jpeg".equals(contentType) && !"image/png".equals(contentType)) {
-	            result.rejectValue("imageFile", "error.imageFile", "Only JPEG and PNG files are accepted.");
-	            return "addEvent";
-	        }
-
-	        // Save the image file to a specific directory
-	        try {
-	            String uploadDirectory = "/path/to/upload/directory"; // Replace with actual path
-	            String fileName = imageFile.getOriginalFilename();
-	            Path path = Paths.get(uploadDirectory + File.separator + fileName);
-	            Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-	        } catch (IOException e) {
-	            result.rejectValue("imageFile", "error.imageFile", "Failed to save the file. Please try again.");
-	            return "addEvent";
-	        }
-	    }
-	    
-	    
+		}
 
 		return "redirect:/events";
 	}

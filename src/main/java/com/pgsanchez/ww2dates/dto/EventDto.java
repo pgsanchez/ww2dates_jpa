@@ -11,7 +11,7 @@ import jakarta.validation.constraints.NotBlank;
 public class EventDto implements Serializable{
 
 	private int id;
-	@NotBlank
+	//@NotBlank
 	private String name;
 	private String description;
 	private int importance = 1;
