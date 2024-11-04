@@ -404,3 +404,7 @@ input:-moz-placeholder {
         from(#505853),
         to(#86895d));
 }
+
+.errorValidation{
+	color: red;
+}

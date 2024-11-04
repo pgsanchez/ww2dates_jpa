@@ -6,14 +6,18 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
 public class EventDto implements Serializable{
 
 	private int id;
-	//@NotBlank
+	@NotBlank(message="El nombre no puede estar en blanco")
 	private String name;
 	private String description;
+	@Min(value=1, message="{Min.Importance.validation}")
+	@Max(3)
 	private int importance = 1;
 	private double latitude = 0.0;
 	private double longitude = 0.0;

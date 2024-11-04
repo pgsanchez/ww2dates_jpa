@@ -75,13 +75,14 @@ public class AdminController {
 	    	// Se valida la imagen: tipo de archivo. Solo se permiten formatos jpeg, jpg y png.
 	        String contentType = imageFile.getContentType();
 	        if (!"image/jpeg".equals(contentType) && !"image/jpg".equals(contentType) && !"image/png".equals(contentType)) {
-	            result.rejectValue("imageFile", "error.imageFile", "Solo se permiten imágenes JPG, JPEG y PNG");
+	            result.rejectValue("imageName", "error.imageFile", "Solo se permiten imágenes JPG, JPEG y PNG");
 	            return "addEvent";
 	        }
 	    }
+	    
 
 	    // Si las validaciones han ido bien:
-		if (newEvent.getId() == 0) {
+		/*if (newEvent.getId() == 0) {
 			
 			Event event = null;
 			try {
@@ -93,7 +94,7 @@ public class AdminController {
 			}
 			
 			eventService.addEvent(event, imageFile);
-		}
+		}*/
 
 		return "redirect:/events";
 	}
