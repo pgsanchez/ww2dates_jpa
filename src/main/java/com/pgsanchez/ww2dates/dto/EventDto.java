@@ -13,11 +13,11 @@ import jakarta.validation.constraints.NotBlank;
 public class EventDto implements Serializable{
 
 	private int id;
-	@NotBlank(message="El nombre no puede estar en blanco")
+	@NotBlank(message="{Validation.AddEventForm.NotBlank.Name}")
 	private String name;
 	private String description;
-	@Min(value=1, message="{Min.Importance.validation}")
-	@Max(3)
+	@Min(value=1, message="{Validation.AddEventForm.Min.Importance}")
+	@Max(value=3, message="{Validation.AddEventForm.Min.Importance}")
 	private int importance = 1;
 	private double latitude = 0.0;
 	private double longitude = 0.0;

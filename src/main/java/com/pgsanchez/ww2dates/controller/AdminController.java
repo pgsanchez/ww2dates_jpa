@@ -75,7 +75,7 @@ public class AdminController {
 	    	// Se valida la imagen: tipo de archivo. Solo se permiten formatos jpeg, jpg y png.
 	        String contentType = imageFile.getContentType();
 	        if (!"image/jpeg".equals(contentType) && !"image/jpg".equals(contentType) && !"image/png".equals(contentType)) {
-	            result.rejectValue("imageName", "error.imageFile", "Solo se permiten imágenes JPG, JPEG y PNG");
+	            result.rejectValue("imageName", "Validation.AddEventForm.imageFile", "Solo se permiten imágenes JPG, JPEG y PNG");
 	            return "addEvent";
 	        }
 	    }
