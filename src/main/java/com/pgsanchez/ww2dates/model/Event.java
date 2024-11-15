@@ -1,6 +1,6 @@
 package com.pgsanchez.ww2dates.model;
 
-import java.util.Date;
+import java.sql.Date;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -142,4 +142,25 @@ public class Event {
 		this.endDate = endDate;
 	}
 
+	public void setDateInTimeFormat(long time) {
+		this.date = new Date(time);
+	}
+	
+	public long getDateInTimeFormat() {
+		if (this.date != null)
+			return date.getTime();
+		else
+			return -1;
+	}
+	
+	public void setEndDateInTimeFormat(long time) {
+			this.endDate = new Date(time);
+	}
+	
+	public long getEndDateInTimeFormat() {
+		if (this.endDate != null)
+			return endDate.getTime();
+		else
+			return -1;
+	}
 }

@@ -61,6 +61,10 @@ public class AdminController {
 		return "addEvent";
 	}
 	
+	/* 
+	 * El orden de los parámetros en esta llamada es importante. El newEvent es el que se valida, así que el parámetro siguiente tiene que ser el BindingResult
+	 * Si se pone primero el MultipartFile (antes del BindingResult), da un error de validación, porque intentará validar el MultipartFile.
+	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String processAddNewEvent(@Valid @ModelAttribute("newEvent") EventDto newEvent, BindingResult result, @ModelAttribute("imageFile") MultipartFile imageFile, HttpServletRequest request) {
 
@@ -80,9 +84,15 @@ public class AdminController {
 	        }
 	    }
 	    
+	    // La fecha de fin no puede ser anterior a la fecha de inicio
+	    if ((newEvent.getEndDate() != null) && (newEvent.getEndDate().before(newEvent.getDate()))) {
+	    	result.rejectValue("endDate", "Validation.AddEventForm.endDate", "La fecha de fin no puede ser anterior a la fecha de inicio");
+            return "addEvent";
+	    }
+	    
 
 	    // Si las validaciones han ido bien:
-		/*if (newEvent.getId() == 0) {
+		if (newEvent.getId() == 0) {
 			
 			Event event = null;
 			try {
@@ -94,7 +104,7 @@ public class AdminController {
 			}
 			
 			eventService.addEvent(event, imageFile);
-		}*/
+		}
 
 		return "redirect:/events";
 	}
@@ -113,10 +123,35 @@ public class AdminController {
 			return "redirect:/events";
 	}
 	
-	
+	/* 
+	 * El orden de los parámetros en esta llamada es importante. El newEvent es el que se valida, así que el parámetro siguiente tiene que ser el BindingResult
+	 * Si se pone primero el MultipartFile (antes del BindingResult), da un error de validación, porque intentará validar el MultipartFile.
+	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String getUpdateEventForm(@ModelAttribute("newEvent") EventDto newEvent, @ModelAttribute("imageFile") MultipartFile imageFile, BindingResult result, HttpServletRequest request) {
+	public String getUpdateEventForm(@Valid @ModelAttribute("newEvent") EventDto newEvent, BindingResult result, @ModelAttribute("imageFile") MultipartFile imageFile, HttpServletRequest request) {
 
+		// Se validan los datos del formulario
+		if(result.hasErrors()) {
+			return "updateEvent";
+		}
+		
+		// La imagen se trata por separado.
+	    if (!imageFile.isEmpty()) {
+	    	
+	    	// Se valida la imagen: tipo de archivo. Solo se permiten formatos jpeg, jpg y png.
+	        String contentType = imageFile.getContentType();
+	        if (!"image/jpeg".equals(contentType) && !"image/jpg".equals(contentType) && !"image/png".equals(contentType)) {
+	            result.rejectValue("imageName", "Validation.AddEventForm.imageFile", "Solo se permiten imágenes JPG, JPEG y PNG");
+	            return "updateEvent";
+	        }
+	    }
+	    
+	 // La fecha de fin no puede ser anterior a la fecha de inicio
+	    if ((newEvent.getEndDate() != null) && (newEvent.getEndDate().before(newEvent.getDate()))) {
+	    	result.rejectValue("endDate", "Validation.AddEventForm.endDate", "La fecha de fin no puede ser anterior a la fecha de inicio");
+            return "updateEvent";
+	    }
+		
 		Event event = null;
 		
 		try {
@@ -148,9 +183,16 @@ public class AdminController {
 		return "redirect:/events";
 	}
 	
+	@RequestMapping(value = "/image", method = RequestMethod.GET)
+	public String processShowImage(@RequestParam(value="imageName", required = true) String imageName, Model model) {
+		model.addAttribute("imageName", imageName);
+		return "image";
+	}
+	
 	@RequestMapping(value = "/files/{filename:.+}", method = RequestMethod.GET)
 	public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
 		Resource file = fileStorageService.loadAsResource(filename);
+
 		return ResponseEntity.ok().body(file);
 	}
 
@@ -177,8 +219,12 @@ public class AdminController {
 		eventDto.setLongitude(event.getLongitude());
 		
 		eventDto.setImageName(event.getImageName());
-		eventDto.setDate(event.getDate());
-		eventDto.setEndDate(event.getEndDate());
+		// El dto utiliza java.util.date, pero el modelo Event utiliza java.sql.date por la BD. Hay que convertirlo.
+		if (event.getDate() != null)
+			eventDto.setDateInTimeFormat(event.getDateInTimeFormat());
+		
+		if (event.getEndDate() != null)
+			eventDto.setEndDateInTimeFormat(event.getEndDateInTimeFormat());
 		
 	    return eventDto;
 	}
@@ -195,8 +241,12 @@ public class AdminController {
 		event.setLongitude(eventDto.getLongitude());
 		
 		event.setImageName(eventDto.getImageName());
-		event.setDate(eventDto.getDate());
-		event.setEndDate(eventDto.getEndDate());
+		// El dto utiliza java.util.date, pero el modelo Event utiliza java.sql.date por la BD. Hay que convertirlo.
+		if (eventDto.getDate() != null)
+			event.setDateInTimeFormat(eventDto.getDateInTimeFormat());
+		
+		if (eventDto.getEndDate() != null)
+			event.setEndDateInTimeFormat(eventDto.getEndDateInTimeFormat());
 		
 	    return event;
 	}

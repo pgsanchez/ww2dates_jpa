@@ -408,3 +408,15 @@ input:-moz-placeholder {
         from(#505853),
         to(#86895d));
 }
+
+.errores{
+	color: deeppink; 
+	background-color: pink; 
+	border: 1px solid deeppink; 
+	border-radius: 5px;
+}
+
+.errores>p{
+	font-size: 0.8em; 
+	margin-left: 10px;
+}

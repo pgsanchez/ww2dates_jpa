@@ -59,6 +59,17 @@ public class EventDto implements Serializable{
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	
+	public void setDateInTimeFormat(long time) {
+		this.date = new java.util.Date(time);
+	}
+	
+	public long getDateInTimeFormat() {
+		if (date != null)
+			return date.getTime();
+		else
+			return -1;
+	}
 
 	public Date getEndDate() {
 		return endDate;
@@ -66,6 +77,17 @@ public class EventDto implements Serializable{
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+	
+	public long getEndDateInTimeFormat() {
+		if (endDate != null)
+			return endDate.getTime();
+		else
+			return -1;
+	}
+	
+	public void setEndDateInTimeFormat(long time) {
+		this.endDate = new java.util.Date(time);
 	}
 
 	public int getId() {

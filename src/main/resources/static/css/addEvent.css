@@ -405,6 +405,18 @@ input:-moz-placeholder {
         to(#86895d));
 }
 
-.errorValidation{
+/*.errorValidation{
 	color: red;
+}*/
+
+.errores{
+	color: deeppink; 
+	background-color: pink; 
+	border: 1px solid deeppink; 
+	border-radius: 5px;
+}
+
+.errores>p{
+	font-size: 0.8em; 
+	margin-left: 10px;
 }
