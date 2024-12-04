@@ -21,7 +21,7 @@ Fondo
 
 body, html {
 font-family: sans-serif;
-background-image: url("../images/planesb17.jpg");
+margin: 0;
 }
 
 .vis-timeline {

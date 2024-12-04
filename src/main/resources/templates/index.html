@@ -13,6 +13,7 @@
 <script src="js/leafletMap.js"></script>
 
 
+
 <script src="js/dist/vis-timeline-graph2d.min.js"></script>
 <link href="js/dist/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
 
@@ -24,15 +25,17 @@
 
 <title>ww2dates</title>
 </head>
-<!--  <body onload="indexFunction()"> -->
 
+<body th:json="${eventListJSON}" th:onload="inicializarVistaIndex(document.body.getAttribute('json'))">
+   <!-- <body th:data-name="Pedro" onLoad="salute(document.body.getAttribute('data-name'))"> -->
 <!-- <body th:json="${eventListJSON}" th:onload="pasarDatos(this.getAttribute('json'))"> -->
-<body>
+<!-- <body onload="inicializarVistaIndex(${eventListJSON})"> -->
+<!-- <body> -->
 	<div class="container">
 		<div id="timeline"></div>
 		
-		<button th:json="${eventListJSON}" th:onclick="pasarDatos(this.getAttribute('json'))">datos</button>
-		<button onclick="timelineEventsToMap()">Eventos al mapa</button>
+		<!-- <button th:json="${eventListJSON}" th:onclick="pasarDatos(this.getAttribute('json'))">datos</button> -->
+		<!-- <button onclick="timelineEventsToMap()">Eventos al mapa</button> -->
 		<!-- <button onclick="clearMarks()">Borrar Eventos</button>
 		<button onclick="fit()">Ajustar escala</button> -->
 
@@ -43,8 +46,10 @@
 		<!-- <script src="resources/js/timeline.js"></script> -->
 		<!-- <script src="<c:url value="resources/js/leafletMapIndex.js" />"></script> -->
 		
-		<script src="js/main.js"></script>
+		
 	</div>
 
+	<script src="js/main.js"></script>
+	
 </body>
 </html>

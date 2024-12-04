@@ -37,6 +37,7 @@ public class HomeController {
 		//listJSON = listJSON.replaceAll("\"", "\\\'");
 		//System.out.println(listJSON);
 		model.addAttribute("eventListJSON", listJSON);
+		
 		return "index";
 	}
 	

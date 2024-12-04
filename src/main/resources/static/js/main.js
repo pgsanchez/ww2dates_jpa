@@ -1,12 +1,82 @@
+
 /******************************************************************************/
 /*************************   TIMELINE   ***************************************/
-var container = document.getElementById('timeline');
-var dataSet = new vis.DataSet();
 var listaEventos = [];
-var eventoSeleccionado = new Object();
-eventoSeleccionado.idTimeline = -1;
+var eventoSeleccionado;
+var mouseOverItemId;
 
-var mouseOverItemId = -1;
+// Variables necesarias para el timeline
+var timeline;
+var container;
+var dataSet;
+var options = {
+  width: '100%',
+  height: '20vh',
+  maxHeight: '290px'
+};
+
+
+/******************************************************************************/
+/**************************   LEAFLET   ***************************************/
+var markersListOnMap = []; 	// Listado de marcas del mapa. Es un array con los idTimeline
+							// de los eventos que se están mostrando en el mapa
+
+
+
+
+function inicializarVistaIndex(json2){
+	
+	/* ********** Inicializaciones del mapa ********** */
+	
+	map = L.map('map').setView([51.505, -0.09], 13);
+
+	L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+		maxZoom: 18
+	}).addTo(map);
+
+	L.control.scale().addTo(map);
+
+	// Centrar el mapa (Alemania, norte de Munich) y poner zoom inicial
+	map.setView(L.latLng(49.410973, 11.425781), maxZoom=5 );	
+	
+	
+	
+	
+	/* ********** Inicializaciones del Timeline ********** */
+	
+	// El elemento del html en el que va a ir el timeline
+	container = document.getElementById('timeline');
+	// Se crea el DataSet del timeline
+	dataSet = new vis.DataSet();
+	// Se crea el Timeline
+	timeline = new vis.Timeline(container, dataSet, options);
+	
+	eventoSeleccionado = new Object();
+	eventoSeleccionado.idTimeline = -1;
+	
+	mouseOverItemId = -1;
+	
+	/* OJO: el json tarda en leerse, así que estas funciones de centrar, se ejecutan
+	ANTES de que termine de leer el json, por eso la opción focus no funciona; porque
+	cuando se llama a la función, el DataSet aun no está disponible. Y por eso, el rango
+	de fechas inicial se pone con fechas fijas*/
+	timeline.setWindow("08/25/1939", "03/01/1940");
+	
+	// Eventos del Timeline
+	/* Función onRangeChanged del Timeline: se ejecuta cuando se mueve el timeline y cambia
+	el rango de fechas visibles. Se borran todas las marcas del mapa (no de listaEventos) y
+	se vuelven a dibujar.
+	*/
+	timeline.on('rangechanged', onRangeChanged);
+	
+	timeline.on('select', onSelect);
+	
+	timeline.on('mouseOver', onMouseOver);
+	
+	pasarDatos(json2);
+}
+
 
 /******************************************************************************/
 /* $(function() {
@@ -32,24 +102,10 @@ function pasarDatos(json2){
 			// Se añade el evento al DataSet del timeline
 			dataSet.add({id: i, content: json[i].name, title: json[i].description, start: json[i].date});
 		};
-	console.log("listaEventos = " + listaEventos.length);
+	//console.log("listaEventos = " + listaEventos.length);
 	
 };
 /******************************************************************************/
-
-var options = {
-  width: '100%',
-  height: '200px',
-  maxHeight: '290px'
-};
-var timeline = new vis.Timeline(container, dataSet, options);
-
-/* OJO: el json tarda en leerse, así que estas funciones de centrar, se ejecutan
-ANTES de que termine de leer el json, por eso la opción focus no funciona; porque
-cuando se llama a la función, el DataSet aun no está disponible. Y por eso, el rango
-de fechas inicial se pone a huevo con fechas fijas*/
-timeline.setWindow("08/25/1939", "03/01/1940");
-
 
 function getEventIdFromTimelineId(idTimeline){
 	var x = 0;
@@ -65,26 +121,25 @@ Función onRangeChanged del Timeline: se ejecuta cuando se mueve el timeline y c
 el rango de fechas visibles. Se borran todas las marcas del mapa (no de listaEventos) y
 se vuelven a dibujar.
 */
-timeline.on('rangechanged', onRangeChanged);
 function onRangeChanged(properties){
 	clearMarks();
 	timelineEventsToMap();
 }
 
-timeline.on('select', onSelect);
+
 function onSelect(properties){
 	// Mostrar web con la información
-	console.log("onSelect properties: " + properties.items);
+	//console.log("onSelect properties: " + properties.items);
 	var x = getEventIdFromTimelineId(properties.items);
 	// console.log("onSelect id: " + x);
 	if (x > 0)
-		document.location.href = 'http://localhost:8080/ww2dates/infoEvent?id='+ x;
+		document.location.href = 'http://localhost:8080/infoEvent?id='+ x;
 		
-	console.log("¿Petición enviada?");
+	//console.log("¿Petición enviada?");
 }
 
 //***************************************************************************************
-timeline.on('mouseOver', onMouseOver);
+
 function onMouseOver(properties){
 
 	if (mouseOverItemId == properties.item){
@@ -138,21 +193,6 @@ function onMouseOver(properties){
 
 /******************************************************************************/
 /**************************   LEAFLET   ***************************************/
-var markersListOnMap = []; // Listado de marcas del mapa. Es un array con los idTimeline
-													 // de los eventos que se están mostrando en el mapa
-
-var map = L.map('map').setView([51.505, -0.09], 13);
-
-L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
-maxZoom: 18
-}).addTo(map);
-
-
-L.control.scale().addTo(map);
-
-// Centrar el mapa (Alemania, norte de Munich) y poner zoom inicial
-map.setView(L.latLng(49.410973, 11.425781), maxZoom=5 );
 
 function addMark(lat, lng){
 
