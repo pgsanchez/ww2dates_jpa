@@ -1,29 +1,18 @@
 package com.pgsanchez.ww2dates.controller;
 
-import java.io.File;
-import java.sql.Date;
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pgsanchez.ww2dates.dto.EventDto;
@@ -56,7 +45,6 @@ public class AdminController {
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String getAddNewEventForm(Model model) {
 		EventDto newEvent = new EventDto();
-		//newEvent.setName("Juan Nadie");
 		model.addAttribute("newEvent", newEvent);
 		return "addEvent";
 	}
@@ -196,7 +184,7 @@ public class AdminController {
 		return ResponseEntity.ok().body(file);
 	}
 
-	private String getFileExtension(String filename) {
+	/*private String getFileExtension(String filename) {
 	    if (filename == null) {
 	        return null;
 	    }
@@ -205,7 +193,7 @@ public class AdminController {
 	        return filename.substring(dotIndex + 1);
 	    }
 	    return "";
-	}
+	}*/
 
 	private EventDto convertToDto(Event event) {
 		EventDto eventDto = new EventDto();
@@ -250,23 +238,5 @@ public class AdminController {
 		
 	    return event;
 	}
-
-	
-	/*@ExceptionHandler(MethodArgumentNotValidException.class)
-	public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
-	    Map<String, String> errors = new HashMap<>();
-	    ex.getBindingResult().getAllErrors().forEach((error) -> {
-	        String fieldName = ((FieldError) error).getField();
-	        String errorMessage = error.getDefaultMessage();
-	        errors.put(fieldName, errorMessage);
-	    });
-	    return errors;
-	}*/
-	
-	/*@ExceptionHandler(MethodArgumentNotValidException.class)
-	public String handleValidationExceptions(MethodArgumentNotValidException ex) {
-	    
-	    return "addEvent";
-	}*/
 	
 }// de la clase
