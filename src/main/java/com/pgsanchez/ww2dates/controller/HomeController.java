@@ -7,9 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.gson.Gson;
 import com.pgsanchez.ww2dates.model.Event;
 import com.pgsanchez.ww2dates.service.EventService;
@@ -22,20 +19,8 @@ public class HomeController {
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Model model) {
-		/*ObjectMapper objectMapper = new ObjectMapper();
-	    objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-	    String listJSON="";
-		try {
-			listJSON = objectMapper.writeValueAsString(eventService.getAllEvents());
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-	    
 		Gson gson = new Gson();
 		String listJSON = gson.toJson(eventService.getAllEvents());
-		//listJSON = listJSON.replaceAll("\"", "\\\'");
-		//System.out.println(listJSON);
 		model.addAttribute("eventListJSON", listJSON);
 		
 		return "index";
